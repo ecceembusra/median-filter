@@ -1,0 +1,27 @@
+clear all clc,close all
+Image = imread('LENNAtuzbiber2.BMP');
+
+[N, M] = size(Image);
+
+big_image(1:N+2*3, 1:M+2*3) = zeros;
+[Nb, Mb] = size(big_image);
+big_image(3+1:Nb-3, 3+1:Mb-3) = Image;
+
+
+Image2 = Image;
+for i = 1:N
+    for j = 1:M   
+        Image2(i, j) = pointMedian(big_image, i, j);
+    end
+end
+
+Image1=medfilt2(Image,[3 3]);
+Image3=medfilt2(Image,[1 3]);
+Image4=medfilt2(Image,[3 1]);
+
+subplot(231),imshow(Image);title('Tuz-biber gürültülü görüntü (LENNA)');
+subplot(232),imshow(Image1);title('MS1 ile süzgeçlenmiþ görüntü');
+subplot(233),imshow(Image2);title('MS2 ile süzgeçlenmiþ görüntü');
+subplot(234),imshow(Image3);title('MS3 ile süzgeçlenmiþ görüntü');
+subplot(235),imshow(Image4);title('MS4 ile süzgeçlenmiþ görüntü');
+
